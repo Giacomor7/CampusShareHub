@@ -10,7 +10,7 @@ public class SlideshowViewModel extends ViewModel {
 
     public SlideshowViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("SlideshowViewModel.java will be the messaging bit (definitely won't get 'round to this...)");
+        mText.setValue("No messages yet...");
     }
 
     public LiveData<String> getText() {

@@ -3,11 +3,20 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">EcoExchange</string>
-    <string name="nav_header_subtitle">Add slogan here...</string>
+    <string name="nav_header_subtitle">Add slogan here…</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Buy</string>
     <string name="menu_gallery">Sell</string>
     <string name="menu_slideshow">Messages</string>
+
+    <string name="sell_product">Add Product to Sell</string>
+    <string name="enter_product_details">Enter Product Details:</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_price">Price (0 if free)</string>
+    <string name="product_image">Click to upload image</string>
+    <string name="product_description">Product Description</string>
+    <string name="product_collection_information">Where can your product be collected?</string>
+    <string name="submit">Submit</string>
 </resources>
