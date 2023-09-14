@@ -41,7 +41,7 @@ public class GalleryFragment extends Fragment {
         final TextView textView = binding.textGallery;
         galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        addProductButton = requireView().findViewById(R.id.add_product);
+        addProductButton = root.findViewById(R.id.add_product);
         addProductButton.setOnClickListener(view -> showAddProductDialog());
 
         return root;
@@ -77,6 +77,8 @@ public class GalleryFragment extends Fragment {
 //                try (FileOutputStream fos = getContext().openFileOutput(product.Name, Context.MODE_PRIVATE)){
 //                    fos.write(product.);
 
+            // This doesn't work because of lack of writing permissions
+            // Find an alternative way to persist entire objects for a phone
             try {
                 FileOutputStream out = new FileOutputStream(product.Name);
                 ObjectOutputStream os = new ObjectOutputStream(out);
