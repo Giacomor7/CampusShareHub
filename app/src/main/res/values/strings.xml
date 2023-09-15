@@ -19,4 +19,10 @@
     <string name="product_description">Product Description</string>
     <string name="product_collection_information">Collection Location</string>
     <string name="submit">Submit</string>
+
+    <string name="default_product_id">1</string>
+    <string name="default_product_name">Product Name</string>
+    <string name="default_product_description">Product Description</string>
+    <string name="default_product_price">Product Price</string>
+    <string name="default_product_collection_information">Product Collection Information</string>
 </resources>

@@ -14,13 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.campussharehub.Product;
+import com.example.campussharehub.MyDatabaseHelper;
 import com.example.campussharehub.R;
 import com.example.campussharehub.databinding.FragmentGalleryBinding;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 
 public class GalleryFragment extends Fragment {
@@ -28,7 +25,6 @@ public class GalleryFragment extends Fragment {
     private FragmentGalleryBinding binding;
 
     Button addProductButton;
-    Product product;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,13 +60,22 @@ public class GalleryFragment extends Fragment {
         Button productSubmit = dialog.findViewById(R.id.product_submit);
 
         productSubmit.setOnClickListener(view -> {
-            product =
-                    new Product(
-                            productName.getText().toString(),
-                            new BigDecimal(productPrice.getText().toString()),
-                            null,
-                            productDescription.getText().toString(),
-                            productCollectionInformation.getText().toString());
+            try (MyDatabaseHelper myDB = new MyDatabaseHelper(getContext())){
+                myDB.addProduct(
+                        productName.getText().toString().trim(),
+                        productDescription.getText().toString().trim(),
+                        new BigDecimal(productPrice.getText().toString().trim()),
+                        productCollectionInformation.getText().toString().trim(),
+                        null);
+            }
+
+//            product =
+//                    new Product(
+//                            productName.getText().toString(),
+//                            new BigDecimal(productPrice.getText().toString()),
+//                            null,
+//                            productDescription.getText().toString(),
+//                            productCollectionInformation.getText().toString());
 
             //File productFile = new File(getContext().getFilesDir(), product.Name);
 
@@ -79,14 +84,14 @@ public class GalleryFragment extends Fragment {
 
             // This doesn't work because of lack of writing permissions
             // Find an alternative way to persist entire objects for a phone
-            try {
-                FileOutputStream out = new FileOutputStream(product.Name);
-                ObjectOutputStream os = new ObjectOutputStream(out);
-                os.writeObject(product);
-                os.flush();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                FileOutputStream out = new FileOutputStream(product.Name);
+//                ObjectOutputStream os = new ObjectOutputStream(out);
+//                os.writeObject(product);
+//                os.flush();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
 
             dialog.dismiss();
         });
