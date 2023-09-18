@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -49,22 +50,41 @@
         android:id="@+id/product_collection_information"
         android:importantForAutofill="no" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/LinearLayout02"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:text="@string/product_image"
-        android:textColor="@color/white"
-        android:background="@color/teal_700"
-        android:id="@+id/product_image"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="@string/submit"
-        android:textColor="@color/white"
-        android:background="@color/teal_700"
-        android:id="@+id/product_submit"/>
+        android:layout_width="match_parent">
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:maxWidth="42dp"
+            android:maxHeight="42dp"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="3dp"
+            android:src="@drawable/image"
+            android:textColor="@color/white"
+            android:background="@drawable/mybutton"
+            android:id="@+id/product_image"
+            android:contentDescription="@string/product_image_contentDescription">
+        </ImageButton>
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/product_submit"
+            android:layout_marginStart="3dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/mybutton"
+            android:maxWidth="42dp"
+            android:maxHeight="42dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/submit"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/product_submit_contentDescription">
+        </ImageButton>
+    </LinearLayout>
 
 </LinearLayout>

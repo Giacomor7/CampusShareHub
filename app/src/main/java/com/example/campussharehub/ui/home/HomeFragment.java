@@ -1,6 +1,7 @@
 package com.example.campussharehub.ui.home;
 
 import android.database.Cursor;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +37,8 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
         recyclerView = root.findViewById(R.id.recyclerView);
 
         myDB = new MyDatabaseHelper(getContext());
@@ -50,6 +54,16 @@ public class HomeFragment extends Fragment {
         customAdapter = new CustomAdapter(getContext(), this.product_id, this.product_name, this.product_description, this.product_price, this.product_collection_information);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        DividerItemDecoration dividerItemDecoration =
+                new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
+        GradientDrawable drawable =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.BOTTOM_TOP, new int[]{0xfff7f7f7, 0xfff7f7f7});
+        drawable.setSize(8,24);
+        dividerItemDecoration.setDrawable(drawable);
+
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         return root;
     }

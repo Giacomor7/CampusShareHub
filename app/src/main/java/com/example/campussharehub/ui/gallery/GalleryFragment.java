@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -57,7 +58,7 @@ public class GalleryFragment extends Fragment {
         final EditText productDescription = dialog.findViewById(R.id.product_description);
         final EditText productPrice = dialog.findViewById(R.id.product_price);
         final EditText productCollectionInformation = dialog.findViewById(R.id.product_collection_information);
-        Button productSubmit = dialog.findViewById(R.id.product_submit);
+        ImageButton productSubmit = dialog.findViewById(R.id.product_submit);
 
         productSubmit.setOnClickListener(view -> {
             try (MyDatabaseHelper myDB = new MyDatabaseHelper(getContext())){
