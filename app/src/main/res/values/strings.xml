@@ -25,4 +25,7 @@
     <string name="default_product_description">Product Description</string>
     <string name="default_product_price">Product Price</string>
     <string name="default_product_collection_information">Product Collection Information</string>
+
+    <string name="product_image_contentDescription">Add image to product</string>
+    <string name="product_submit_contentDescription">Submit</string>
 </resources>
