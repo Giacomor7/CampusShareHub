@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
                 product_id.add(cursor.getString(0));
                 product_name.add(cursor.getString(1));
                 product_description.add(cursor.getString(2));
-                product_price.add(cursor.getString(3));
+                product_price.add("£" + cursor.getString(3));
                 product_collection_information.add(cursor.getString(4));
                 product_image.add(cursor.getString(5));
             }

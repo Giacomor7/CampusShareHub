@@ -1,6 +1,8 @@
 package com.example.campussharehub.ui.gallery;
 
 import android.app.Dialog;
+import android.database.Cursor;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,22 +12,33 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.campussharehub.CustomAdapter;
 import com.example.campussharehub.MyDatabaseHelper;
 import com.example.campussharehub.R;
 import com.example.campussharehub.databinding.FragmentGalleryBinding;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class GalleryFragment extends Fragment {
 
     private FragmentGalleryBinding binding;
 
     Button addProductButton;
+
+    RecyclerView recyclerView;
+
+    MyDatabaseHelper myDB;
+    ArrayList<String> product_id, product_name, product_description, product_price, product_collection_information, product_image;
+    CustomAdapter customAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +53,34 @@ public class GalleryFragment extends Fragment {
 
         addProductButton = root.findViewById(R.id.add_product);
         addProductButton.setOnClickListener(view -> showAddProductDialog());
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
+        recyclerView = root.findViewById(R.id.yourProducts);
+
+        myDB = new MyDatabaseHelper(getContext());
+        product_id = new ArrayList<>();
+        product_name = new ArrayList<>();
+        product_description = new ArrayList<>();
+        product_price = new ArrayList<>();
+        product_collection_information = new ArrayList<>();
+        product_image = new ArrayList<>();
+
+        storeDataInArrays();
+
+        customAdapter = new CustomAdapter(getContext(), this.product_id, this.product_name, this.product_description, this.product_price, this.product_collection_information);
+        recyclerView.setAdapter(customAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        DividerItemDecoration dividerItemDecoration =
+                new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
+        GradientDrawable drawable =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.BOTTOM_TOP, new int[]{0xfff7f7f7, 0xfff7f7f7});
+        drawable.setSize(8,24);
+        dividerItemDecoration.setDrawable(drawable);
+
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         return root;
     }
@@ -65,7 +106,7 @@ public class GalleryFragment extends Fragment {
                 myDB.addProduct(
                         productName.getText().toString().trim(),
                         productDescription.getText().toString().trim(),
-                        new BigDecimal(productPrice.getText().toString().trim()),
+                        productPrice.getText().toString().trim(),
                         productCollectionInformation.getText().toString().trim(),
                         null);
             }
@@ -98,6 +139,22 @@ public class GalleryFragment extends Fragment {
         });
 
         dialog.show();
+    }
+
+    void storeDataInArrays(){
+        Cursor cursor = myDB.readAllData();
+        if(cursor.getCount() == 0){
+            Toast.makeText(getContext(), "No products to show...", Toast.LENGTH_SHORT).show();
+        }else{
+            while (cursor.moveToNext()){
+                product_id.add(cursor.getString(0));
+                product_name.add(cursor.getString(1));
+                product_description.add(cursor.getString(2));
+                product_price.add("£" + cursor.getString(3));
+                product_collection_information.add(cursor.getString(4));
+                product_image.add(cursor.getString(5));
+            }
+        }
     }
 
     @Override

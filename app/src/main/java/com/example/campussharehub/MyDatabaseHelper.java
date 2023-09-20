@@ -9,8 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import java.math.BigDecimal;
-
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private final Context context;
@@ -46,7 +44,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                         COLUMN_DESCRIPTION +
                         " TEXT, " +
                         COLUMN_PRICE +
-                        " REAL, " +
+                        " TEXT, " +
                         COLUMN_COLLECTION_INFORMATION +
                         " TEXT, " +
                         COLUMN_IMAGE +
@@ -60,13 +58,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addProduct(String name, String description, BigDecimal price, String collectionInformation, String image){
+    public void addProduct(String name, String description, String price, String collectionInformation, String image){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(COLUMN_NAME, name);
         cv.put(COLUMN_DESCRIPTION, description);
-        cv.put(COLUMN_PRICE, String.valueOf(price));
+        cv.put(COLUMN_PRICE, price);
         cv.put(COLUMN_COLLECTION_INFORMATION, collectionInformation);
         cv.put(COLUMN_IMAGE, image);
         long result = db.insert(TABLE_NAME, null, cv);
@@ -86,5 +84,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             cursor = db.rawQuery(query, null);
         }
         return cursor;
+    }
+
+    public void wipeData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
     }
 }

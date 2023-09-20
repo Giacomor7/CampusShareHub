@@ -29,6 +29,15 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "We could make this do something!", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
+        binding.appBarMain.fab.setOnClickListener(view -> {
+            Snackbar.make(
+                    view, "We could make this do something!", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show();
+            try (MyDatabaseHelper myDB = new MyDatabaseHelper(getApplicationContext())){
+                myDB.wipeData();
+            }
+        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
