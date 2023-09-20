@@ -136,6 +136,8 @@ public class GalleryFragment extends Fragment {
 //            }
 
             dialog.dismiss();
+            GalleryFragment newFragment = new GalleryFragment();
+            getParentFragmentManager().beginTransaction().replace(this.getId(), newFragment).commit();
         });
 
         dialog.show();
